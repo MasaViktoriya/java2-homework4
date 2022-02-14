@@ -20,14 +20,13 @@ public class OwnLinkedList<T> {
         } else {
             tail.next = newNode;
         }
-
         tail = newNode;
         size++;
     }
 
     public  void insertNode(T data, int index){
         try {
-            if (index > size || index < 0) {
+            if (index >= size || index < 0) {
                 System.out.println("Введенный индекс за пределами списка");
                 return;
             }
@@ -56,35 +55,26 @@ public class OwnLinkedList<T> {
 
     public void deleteNode(int index) {
         try {
-            if (index > size || index < 0) {
+            if (index >= size || index < 0) {
                 System.out.println("Введенный индекс за пределами списка");
                 return;
             }
             Node current = head;
             if (index == 0) {
-                for (int j = 0; j < size - 2; j++) {
-                    current.data = current.next.data;
-                    current = current.next;
-                }
-                current.data = current.next.data;
-                current.next = null;
+                head = current.next;
                 size--;
-            } else if (index == size - 1) {
+                } else if (index == size - 1) {
                 for (int i = 1; i < index; i++) {
                     current = current.next;
                 }
                 current.next = null;
+                tail = current;
                 size--;
             } else {
-                for (int i = 1; i <= index; i++) {
+                for (int i = 1; i < index; i++) {
                     current = current.next;
                 }
-                for (int j = index; j < size - 2; j++) {
-                    current.data = current.next.data;
-                    current = current.next;
-                }
-                current.data = current.next.data;
-                current.next = null;
+                current.next = current.next.next;
                 size--;
             }
         } catch (NullPointerException e) {
@@ -94,7 +84,7 @@ public class OwnLinkedList<T> {
 
     public void changeNode(T data, int index) {
         try {
-            if (index > size || index < 0) {
+            if (index >= size || index < 0) {
                 System.out.println("Введенный индекс за пределами списка");
                 return;
             }
@@ -135,7 +125,7 @@ public class OwnLinkedList<T> {
     }
 
     public void display(int index) {
-        if (index > size || index < 0) {
+        if (index >= size || index < 0) {
             System.out.println("Введенный индекс - за пределами списка");
             return;
         }
